@@ -24,15 +24,6 @@ return {
 				})
 			end,
 		},
-		{
-			"<C-G>",
-			function()
-				require("neo-tree.git.status").execute({
-					toggle = true,
-					position = "left",
-				})
-			end,
-		},
 	},
 	opts = {
 
@@ -41,11 +32,29 @@ return {
 		},
 	},
 	config = function()
+		vim.keymap.set("n", "<C-g>", ":Neotree git_status <CR>")
 		require("neo-tree").setup({
 			close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
 			popup_border_style = "rounded",
 			enable_git_status = true,
 			enable_diagnostics = true,
+			filesystem = {
+				window = {
+					mappings = {
+						["<leader>tt"] = {
+							command = function(state)
+								local node = state.tree:get_node()
+								local user_input = vim.fn.input("Command in" .. node.path)
+								local out = vim.cmd("!cd " .. node.path .. " &&" .. user_input)
+								if vim.v.shell_error ~= 0 then
+									-- print(out)
+								end
+							end,
+						},
+						desc = "Running command in selected node",
+					},
+				},
+			},
 		})
 	end,
 }
