@@ -12,4 +12,16 @@ return {
 		--   If not available, we use `mini` as the fallback
 		"rcarriga/nvim-notify",
 	},
+	config = function()
+		vim.keymap.set("n", "<leader>ne", ":Noice errors <CR>")
+		vim.keymap.set("n", "<leader>nm", ":Noice telescope  <CR>")
+		require("noice").setup({
+			routes = {
+				{
+					filter = { event = "msg_show" },
+					opts = { skip = true },
+				},
+			},
+		})
+	end,
 }

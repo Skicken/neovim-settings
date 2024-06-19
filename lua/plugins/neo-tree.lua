@@ -23,6 +23,7 @@ return {
 					position = "left",
 				})
 			end,
+			desc = "Opening neotree",
 		},
 	},
 	opts = {
@@ -33,6 +34,7 @@ return {
 	},
 	config = function()
 		vim.keymap.set("n", "<C-g>", ":Neotree git_status <CR>")
+		vim.keymap.set("n", "<leader>oo", ":Neotree focus <CR>")
 		require("neo-tree").setup({
 			close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
 			popup_border_style = "rounded",
@@ -44,14 +46,34 @@ return {
 						["<leader>tt"] = {
 							command = function(state)
 								local node = state.tree:get_node()
-								local user_input = vim.fn.input("Command in" .. node.path)
+								local user_input = vim.fn.input("Command Input")
 								local out = vim.cmd("!cd " .. node.path .. " &&" .. user_input)
+
+								vim.print(node.path)
 								if vim.v.shell_error ~= 0 then
 									-- print(out)
 								end
 							end,
 						},
-						desc = "Running command in selected node",
+						["<leader>ng"] = {
+							command = function(state)
+								local node = state.tree:get_node()
+								local user_input = vim.fn.input("Nx Generate")
+
+								if user_input == "\n" or user_input == "" then
+									return
+								end
+
+								local out = vim.cmd(
+									"!cd "
+										.. node.path
+										.. " && "
+										.. user_input
+										.. " --directory=./"
+										.. " --nameAndDirectoryFormat=as-provided"
+								)
+							end,
+						},
 					},
 				},
 			},

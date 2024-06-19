@@ -13,6 +13,13 @@ return { -- LSP Configuration & Plugins
 		{ "folke/neodev.nvim", opts = {} },
 	},
 	config = function()
+		-- require("lspconfig").ccls.setup({
+		-- 	init_options = {
+		-- 		cache = {
+		-- 			directory = ".ccls-cache",
+		-- 		},
+		-- 	},
+		-- })
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
 			callback = function(event)
@@ -100,14 +107,46 @@ return { -- LSP Configuration & Plugins
 			end,
 		})
 
+		local ok, mason_registry = pcall(require, "mason-registry")
+		if not ok then
+			vim.notify("mason-registry could not be loaded")
+			return
+		end
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+		local angularls_path = mason_registry.get_package("angular-language-server"):get_install_path()
 
+		local cmd = {
+			"ngserver",
+			"--stdio",
+			"--tsProbeLocations",
+			table.concat({
+				angularls_path,
+				vim.uv.cwd(),
+			}, ","),
+			"--ngProbeLocations",
+			table.concat({
+				angularls_path .. "/node_modules/@angular/language-server",
+				vim.uv.cwd(),
+			}, ","),
+		}
+
+		local config = {
+			cmd = cmd,
+			on_new_config = function(new_config, new_root_dir)
+				new_config.cmd = cmd
+			end,
+		}
 		local servers = {
-			clangd = {},
 			-- gopls = {},
+			clangd = {
+				cmd = {
+					"clangd",
+					"--fallback-style=webkit",
+				},
+			},
 			pyright = {},
-			angularls = {},
+			angularls = config,
 			-- rust_analyzer = {},
 			-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 			--
