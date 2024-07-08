@@ -13,9 +13,17 @@ return {
 		"rcarriga/nvim-notify",
 	},
 	config = function()
-		vim.keymap.set("n", "<leader>ne", ":Noice errors <CR>")
-		vim.keymap.set("n", "<leader>nm", ":Noice telescope  <CR>")
+		vim.keymap.set("n", "<leader>nt", ":Noice telescope  <CR>")
 		require("noice").setup({
+
+			lsp = {
+				-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+				override = {
+					["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+					["vim.lsp.util.stylize_markdown"] = true,
+					["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+				},
+			},
 			routes = {
 				{
 					filter = { event = "msg_show" },

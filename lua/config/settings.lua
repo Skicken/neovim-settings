@@ -1,11 +1,12 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-vim.g.have_nerd_font = true
+vim.g.have_nerd_font = true 
 
 vim.opt.number = true
+vim.opt.relativenumber = true
 
-vim.opt.showmode = false
+vim.opt.showmode = false 
 
 vim.opt.clipboard = "unnamedplus"
 
@@ -40,3 +41,4 @@ vim.o.shiftwidth = 4
 vim.o.expandtab = true
 vim.o.smartindent = true
 vim.o.encoding="utf-8"
+vim.o.swapfile = false

@@ -8,7 +8,6 @@ return {
 	},
 	config = function()
 		require("todo-comments").setup({})
-		vim.keymap.set("n", "T", ":TodoLocList <CR>")
+		vim.keymap.set("n", "T", ":TodoTelescope<CR>")
 	end,
-	-- TODO:
 }

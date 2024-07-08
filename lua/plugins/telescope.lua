@@ -4,6 +4,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
 	branch = "0.1.x",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
+		"yamatsum/nvim-nonicons",
 		{ -- If encountering errors, see telescope-fzf-native README for installation instructions
 			"nvim-telescope/telescope-fzf-native.nvim",
 
@@ -19,10 +20,16 @@ return { -- Fuzzy Finder (files, lsp, etc)
 		{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
 	},
 	config = function()
+		local icons = require("nvim-nonicons")
 		require("telescope").setup({
 			extensions = {
 				["ui-select"] = {
 					require("telescope.themes").get_dropdown(),
+				},
+				defaults = {
+					prompt_prefix = "  " .. icons.get("telescope") .. "  ",
+					selection_caret = " ❯ ",
+					entry_prefix = "   ",
 				},
 			},
 		})

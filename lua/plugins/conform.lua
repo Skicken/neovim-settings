@@ -18,7 +18,7 @@ return {
 				-- Conform will run multiple formatters sequentially
 				python = { "isort", "black" },
 				-- Use a sub-list to run only the first available formatter
-				cpp = { "clang-format" },
+				cpp = { "clangd" },
 			},
 
 			vim.keymap.set("n", "<leader>ff", function()
@@ -26,10 +26,10 @@ return {
 			end, { desc = "format code" }),
 		})
 		require("conform").formatters.prettier = {
-			prepend_args = { "--tab-width", "4" },
+			prepend_args = { "--tab-width", "2" },
 		}
-		require("conform").formatters.clang = {
-			prepend_args = { "--tab-width", "4" },
+		require("conform").formatters.clangd = {
+			prepend_args = { "--falback-style", "{UseTab: Always,IndentWidth: 2,TabWidth: 2}" },
 		}
 	end,
 }

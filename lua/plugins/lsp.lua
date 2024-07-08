@@ -131,22 +131,12 @@ return { -- LSP Configuration & Plugins
 			}, ","),
 		}
 
-		local config = {
-			cmd = cmd,
-			on_new_config = function(new_config, new_root_dir)
-				new_config.cmd = cmd
-			end,
-		}
 		local servers = {
 			-- gopls = {},
 			clangd = {
-				cmd = {
-					"clangd",
-					"--fallback-style=webkit",
-				},
 			},
 			pyright = {},
-			angularls = config,
+			["clang-format"] = {},
 			-- rust_analyzer = {},
 			-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 			--

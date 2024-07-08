@@ -8,12 +8,9 @@ vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagn
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
--- buffer navigation
-vim.keymap.set("n", "[b", vim.cmd.bp, { desc = "Go to previous buffer" })
-vim.keymap.set("n", "]b", vim.cmd.bn, { desc = "Go to next buffer" })
-
-vim.keymap.set("n", "[b", vim.cmd.bp, { desc = "Go to previous buffer" })
-vim.keymap.set("n", "]b", vim.cmd.bn, { desc = "Go to next buffer" })
+-- TODO:jump between edit buffersjump between edit buffers not between buffers in list not between buffers in list
+vim.keymap.set("n", "[b", vim.cmd.bp, { desc = "Go to previous edit buffer" })
+vim.keymap.set("n", "]b", vim.cmd.bn, { desc = "Go to next edit buffer" })
 
 vim.keymap.set("n", "dx", '"_dd', { desc = "delete line" })
 
@@ -25,3 +22,5 @@ vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { desc = "move line down(n)" })
 
 vim.keymap.set("v", "<A-j>", ":m '>-2<CR>gv=gv", { desc = "move line down(v)" })
 vim.keymap.set("v", "<A-k>", ":m '>+1<CR>gv=gv", { desc = "move line up(v)" })
+
+
