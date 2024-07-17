@@ -133,8 +133,7 @@ return { -- LSP Configuration & Plugins
 
 		local servers = {
 			-- gopls = {},
-			clangd = {
-			},
+			clangd = {},
 			pyright = {},
 			csharp_ls = {},
 			-- rust_analyzer = {},
@@ -145,8 +144,8 @@ return { -- LSP Configuration & Plugins
 			--
 			-- But for many setups, the LSP (`tsserver`) will work just fine
 			tsserver = {},
-			--
-
+			docker_compose_language_service = {},
+			dockerls = {},
 			lua_ls = {
 				-- cmd = {...},
 				-- filetypes = { ...},
