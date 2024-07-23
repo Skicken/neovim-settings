@@ -14,6 +14,8 @@ return {
 	},
 	config = function()
 		vim.keymap.set("n", "<leader>nt", ":Noice telescope  <CR>")
+		vim.keymap.set("n", "<leader>nn", ":Noice dismiss  <CR>")
+
 		require("noice").setup({
 
 			lsp = {
