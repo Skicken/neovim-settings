@@ -13,13 +13,6 @@ return { -- LSP Configuration & Plugins
 		{ "folke/neodev.nvim", opts = {} },
 	},
 	config = function()
-		-- require("lspconfig").ccls.setup({
-		-- 	init_options = {
-		-- 		cache = {
-		-- 			directory = ".ccls-cache",
-		-- 		},
-		-- 	},
-		-- })
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
 			callback = function(event)
@@ -134,7 +127,6 @@ return { -- LSP Configuration & Plugins
 		local servers = {
 			-- gopls = {},
 			--
-			glslls = {},
 			clangd = {},
 			pyright = {},
 			-- rust_analyzer = {},

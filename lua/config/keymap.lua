@@ -12,6 +12,8 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 vim.keymap.set("n", "[b", vim.cmd.bp, { desc = "Go to previous edit buffer" })
 vim.keymap.set("n", "]b", vim.cmd.bn, { desc = "Go to next edit buffer" })
 
+vim.keymap.set("n", "<leader>b", ":b#<CR>", { desc = "Alternative buffer" })
+
 vim.keymap.set("n", "dx", '"_dd', { desc = "delete line" })
 
 vim.keymap.set("n", "[g", "g;", { desc = "Go to previous edit position" })

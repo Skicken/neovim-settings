@@ -32,6 +32,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
 					entry_prefix = "   ",
 				},
 			},
+			
 		})
 
 		-- Enable Telescope extensions if they are installed

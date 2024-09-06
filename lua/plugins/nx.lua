@@ -1,6 +1,6 @@
 return {
 	{
-		"Equilibris/nx.nvim",
+	"Equilibris/nx.nvim",
 
 		dependencies = {
 			"nvim-telescope/telescope.nvim",
@@ -13,7 +13,7 @@ return {
 
 		-- Plugin will load when you use these keys
 		keys = {
-			-- { "<leader>nx", "<cmd>Telescope nx actions<CR>", desc = "nx actions" },
+			{ "<leader>nx", "<cmd>Telescope nx actions<CR>", desc = "nx actions" },
 		},
 		config = function()
 			require("nx").setup({
