@@ -27,12 +27,25 @@ return { -- Fuzzy Finder (files, lsp, etc)
 					require("telescope.themes").get_dropdown(),
 				},
 				defaults = {
-					prompt_prefix = "  " .. icons.get("telescope") .. "  ",
-					selection_caret = " ❯ ",
-					entry_prefix = "   ",
+					-- prompt_prefix = "  " .. icons.get("telescope") .. "  ",
+					-- selection_caret = " ❯ ",
+					-- entry_prefix = "   ",
+					file_ignore_patterns = { "vendor/", "build/" },
 				},
 			},
-			
+			-- pickers = {
+			-- 	find_files = {
+			-- 		find_command = {
+			-- 			"rg",
+			-- 			"--files",
+			-- 			"--hidden",
+			-- 			"--glob",
+			-- 			"!.vendor/",
+			-- 			"--glob",
+			-- 			"!build/",
+			-- 		},
+			-- 	},
+			-- },
 		})
 
 		-- Enable Telescope extensions if they are installed

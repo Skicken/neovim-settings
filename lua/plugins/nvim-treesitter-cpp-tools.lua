@@ -25,7 +25,7 @@ return {
 			},
 		}
 		vim.keymap.set({ "n", "v" }, "<leader>mm", function()
-			local base_name = vim.fn.expand("%:p:t:r") .. ".cpp"
+			local base_name = vim.fn.expand("%:r") .. ".cpp"
 			print("Moving definition to " .. base_name)
 			if vim.fn.mode() == "v" or vim.fn.mode() == "V" then
 				vim.cmd("'<,'>TSCppDefineClassFunc")
