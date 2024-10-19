@@ -129,6 +129,8 @@ return { -- LSP Configuration & Plugins
 			--
 			clangd = {},
 			pyright = {},
+			ts_ls = {},
+			eslint_d = {},
 			-- rust_analyzer = {},
 			-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 			--
@@ -136,7 +138,6 @@ return { -- LSP Configuration & Plugins
 			--    https://github.com/pmizio/typescript-tools.nvim
 			--
 			-- But for many setups, the LSP (`tsserver`) will work just fine
-			tsserver = {},
 			docker_compose_language_service = {},
 			dockerls = {},
 			lua_ls = {

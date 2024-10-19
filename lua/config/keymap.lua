@@ -19,10 +19,11 @@ vim.keymap.set("n", "dx", '"_dd', { desc = "delete line" })
 vim.keymap.set("n", "[g", "g;", { desc = "Go to previous edit position" })
 vim.keymap.set("n", "]g", "g,", { desc = "Go to next edit position" })
 
-vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { desc = "move line up(n)" })
-vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { desc = "move line down(n)" })
+vim.keymap.set("n", "<C-j>", ":m .+1<CR>==", { desc = "move line down(n)" })
+vim.keymap.set("n", "<C-k>", ":m .-2<CR>==", { desc = "move line up(n)" })
 
-vim.keymap.set("v", "<A-j>", ":m '>-2<CR>gv=gv", { desc = "move line down(v)" })
-vim.keymap.set("v", "<A-k>", ":m '>+1<CR>gv=gv", { desc = "move line up(v)" })
+vim.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv", { desc = "move line up(v)" })
+vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv", { desc = "move line down(v)" })
+
 
 

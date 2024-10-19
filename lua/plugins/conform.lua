@@ -25,9 +25,6 @@ return {
 				require("conform").format({ async = true, lsp_format = "fallback" })
 			end, { desc = "format code" }),
 		})
-		require("conform").formatters.prettier = {
-			prepend_args = { "--tab-width", "2" },
-		}
 		require("conform").formatters.clangd = {
 			prepend_args = { "--falback-style", "{UseTab: Always,IndentWidth: 2,TabWidth: 2}" },
 		}
