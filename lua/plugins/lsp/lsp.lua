@@ -132,6 +132,12 @@ return { -- LSP Configuration & Plugins
 			["ts-standard"] = {},
 			["html-lsp"] = {},
 			["css-lsp"] = {},
+			["angular-language-server"] = {},
+			["ansible-lint"] = {},
+			["ansible-language-server"] = {},
+			["eslint-lsp"] = {},
+			["texlab"] = {},
+
 			docker_compose_language_service = {},
 			dockerls = {},
 			lua_ls = {

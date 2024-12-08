@@ -93,9 +93,9 @@ return { -- Autocompletion
 				--  end
 				--
 				-- <c-l> will move you to the right of each of the expansion locations.
-				-- <c-h> is similar, except moving you backwards.
 				["<C-l>"] = cmp.mapping(function()
 					if luasnip.expand_or_locally_jumpable() then
+						-- <c-h> is similar, except moving you backwards.
 						luasnip.expand_or_jump()
 					end
 				end, { "i", "s" }),
@@ -104,13 +104,12 @@ return { -- Autocompletion
 						luasnip.jump(-1)
 					end
 				end, { "i", "s" }),
-
 			}),
 			sources = cmp.config.sources({
-				{ name = "nvim_lsp" },
-				{ name = "luasnip" },
+				{ name = "nvim_lsp" , max_item_count = 5 },
+				{ name = "luasnip" , max_item_count = 5 },
 				{ name = "path" },
-				{ name = "codeium"},
+				{ name = "codeium", priority = 100, max_item_count = 3 },
 				{ name = "buffer" },
 			}),
 			experimental = {

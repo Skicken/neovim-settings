@@ -36,10 +36,10 @@ return {
 			popup_border_style = "rounded",
 			enable_git_status = true,
 			enable_diagnostics = true,
-			close_if_last_window = true,
+			close_if_last_window = false,
 			filesystem = {
 				window = {
-					width = 60,
+					width = 40,
 					mappings = {
 						["<leader>tt"] = {
 							command = function(state)
