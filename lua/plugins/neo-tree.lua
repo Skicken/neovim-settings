@@ -30,7 +30,6 @@ return {
 	},
 	config = function()
 		vim.keymap.set("n", "<C-g>", ":Neotree git_status <CR>")
-		vim.keymap.set("n", "<leader>oo", ":Neotree focus <CR>")
 		require("neo-tree").setup({
 
 			popup_border_style = "rounded",

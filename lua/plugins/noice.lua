@@ -1,21 +1,24 @@
 return {
 	"folke/noice.nvim",
 	event = "VeryLazy",
-	opts = {
-	},
+	opts = {},
 	dependencies = {
 		-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
 		"MunifTanjim/nui.nvim",
 		"rcarriga/nvim-notify",
 	},
 	config = function()
-		vim.keymap.set("n", "<leader>nt", ":Noice telescope  <CR>")
-		vim.keymap.set("n", "<leader>nn", ":Noice dismiss  <CR>")
+		vim.keymap.set("n", "<leader>nt", function()
+			require("noice").cmd("telescope")
+		end)
+		vim.keymap.set("n", "<leader>n", function()
+			require("noice").cmd("dismiss")
+		end)
 
 		require("noice").setup({
 			views = {
 				notify = {
-					replace=true,
+					replace = true,
 				},
 			},
 			messages = {
