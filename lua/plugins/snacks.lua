@@ -4,9 +4,9 @@ return {
 	lazy = false,
 	opts = {
 		bigfile = { enabled = true },
-		dashboard = { enabled = true },
 		indent = { enabled = true },
 		input = { enabled = true },
+		dashboard = require("plugins-config.snacks.dashboard"),
 		notifier = {
 			enabled = false,
 		},
