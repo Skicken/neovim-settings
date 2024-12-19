@@ -129,7 +129,7 @@ return { -- LSP Configuration & Plugins
 			pyright = {},
 			eslint_d = {},
 			["tailwindcss-language-server"] = {},
-			["ts-standard"] = {},
+			vtsls = {},
 			["html-lsp"] = {},
 			["css-lsp"] = {},
 			["angular-language-server"] = {},
