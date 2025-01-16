@@ -26,4 +26,11 @@ vim.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv", { desc = "move line up(v)" })
 vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv", { desc = "move line down(v)" })
 
 
+vim.keymap.set("n", "dc", function()
+    vim.cmd([[
+        %s/^\s*\(\/\/\|#\|--\).*//g
+    ]])
+end, { desc = "Delete comments from the file" })
+
+
 
