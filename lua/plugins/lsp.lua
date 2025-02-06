@@ -46,7 +46,6 @@ return { -- LSP Configuration & Plugins
 				--  Similar to document symbols, except searches over your entire project.
 				map("<leader>ws", telescope.lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
 
-				
 				-- Rename the variable under your cursor.
 				--  Most Language Servers support renaming across files, etc.
 				map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
@@ -79,7 +78,6 @@ return { -- LSP Configuration & Plugins
 						buffer = event.buf,
 						group = highlight_augroup,
 						callback = vim.lsp.buf.clear_references,
-
 					})
 					vim.api.nvim_create_autocmd("LspDetach", {
 						group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
@@ -120,7 +118,7 @@ return { -- LSP Configuration & Plugins
 				vim.uv.cwd(),
 			}, ","),
 			table.concat({
-			"--ngProbeLocations",
+				"--ngProbeLocations",
 				angularls_path .. "/node_modules/@angular/language-server",
 				vim.uv.cwd(),
 			}, ","),
@@ -135,8 +133,6 @@ return { -- LSP Configuration & Plugins
 			["html-lsp"] = {},
 			["css-lsp"] = {},
 			["angular-language-server"] = {},
-			["ansible-lint"] = {},
-			["ansible-language-server"] = {},
 			["eslint-lsp"] = {},
 			["texlab"] = {},
 
@@ -155,6 +151,10 @@ return { -- LSP Configuration & Plugins
 			},
 		}
 
+		if vim.fn.executable("ansible") == 1 then
+			servers["ansible-lint"] = {}
+			servers["ansible-language-server"] = {}
+		end
 
 		-- Ensure the servers and tools above are installed
 		--  To check the current status of installed tools and/or manually install

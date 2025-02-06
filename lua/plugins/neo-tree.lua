@@ -37,10 +37,11 @@ return {
 				window = {
 					width = 40,
 					mappings = {
-						["<leader>tt"] = {
+						["<leader>t"] = {
 							command = function(state)
 								local node = state.tree:get_node()
-								local user_input = vim.fn.input("Command Input")
+								
+								local user_input = vim.fn.input("Command Input in "..node.path)
 								local out = vim.cmd("!cd " .. node.path .. " &&" .. user_input)
 
 								vim.print(node.path)
@@ -48,6 +49,7 @@ return {
 									-- print(out)
 								end
 							end,
+							desc = "[T]erminal command in neotree node"
 						},
 					},
 				},
