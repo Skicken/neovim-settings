@@ -27,4 +27,14 @@ return function()
 			t('"})'),
 		}),
 	})
+	ls.add_snippets("cpp", {
+		s("gtest", {
+			t("TEST("),
+			i(1, "TestSuite"),
+			t(", "),
+			i(2, "TestName"),
+			t(") {"),
+			t({ "", "}" }),
+		}),
+	})
 end
