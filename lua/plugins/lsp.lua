@@ -128,7 +128,9 @@ return { -- LSP Configuration & Plugins
 			clangd = {},
 			pyright = {},
 			eslint_d = {},
-			["tailwindcss-language-server"] = {},
+			["tailwindcss-language-server"] = {
+				filetypes = { "css", "scss", "less", "html", "vue" },
+			},
 			vtsls = {},
 			["html-lsp"] = {},
 			["css-lsp"] = {},
