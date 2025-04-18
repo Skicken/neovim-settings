@@ -1,6 +1,6 @@
 return {
-	"folke/noice.nvim",
 	event = "VeryLazy",
+	"folke/noice.nvim",
 	opts = {},
 	dependencies = {
 		-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
@@ -16,11 +16,6 @@ return {
 		end)
 
 		require("noice").setup({
-			views = {
-				notify = {
-					replace = true,
-				},
-			},
 			messages = {
 
 				enabled = true, -- enables the Noice messages UI
