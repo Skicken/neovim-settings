@@ -13,7 +13,7 @@ return {
 			function()
 				require("neo-tree.command").execute({
 					toggle = true,
-					position = "left",
+					position = "right",
 				})
 			end,
 			desc = "Opening neotree",

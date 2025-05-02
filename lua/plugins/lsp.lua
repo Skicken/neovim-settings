@@ -124,6 +124,8 @@ return { -- LSP Configuration & Plugins
 			}, ","),
 		}
 
+		local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
+			.. "/node_modules/@vue/language-server"
 		local servers = {
 			clangd = {},
 			["clang-format"] = {},
@@ -131,6 +133,19 @@ return { -- LSP Configuration & Plugins
 			eslint_d = {},
 			["tailwindcss-language-server"] = {
 				filetypes = { "css", "scss", "less", "html", "vue" },
+			},
+			ts_ls = {
+
+				init_options = {
+					plugins = {
+						{
+							name = "@vue/typescript-plugin",
+							location = vue_language_server_path,
+							languages = { "vue" },
+						},
+					},
+				},
+				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
 			},
 			vtsls = {},
 			prettier = {},
