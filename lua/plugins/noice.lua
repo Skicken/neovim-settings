@@ -10,10 +10,10 @@ return {
 	config = function()
 		vim.keymap.set("n", "<leader>nt", function()
 			require("noice").cmd("telescope")
-		end)
-		vim.keymap.set("n", "<leader>n", function()
+		end, { desc = "Telescope Noice" })
+		vim.keymap.set("n", "<leader>un", function()
 			require("noice").cmd("dismiss")
-		end)
+		end, { desc = "Dismiss Noice" })
 
 		require("noice").setup({
 			messages = {
