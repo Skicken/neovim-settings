@@ -1,16 +1,17 @@
 return { -- LSP Configuration & Plugins
 	"neovim/nvim-lspconfig",
+	version = "1.8.0",
 	dependencies = {
 		-- Automatically install LSPs and related tools to stdpath for Neovim
-		{ "williamboman/mason.nvim", config = true },
-		"williamboman/mason-lspconfig.nvim",
+		{ "mason-org/mason.nvim", config = true, branch = "v1.x" },
+		{ "williamboman/mason-lspconfig.nvim", branch = "v1.x" },
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 
 		{ "j-hui/fidget.nvim", opts = {} },
 
 		-- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
 		-- used for completion, annotations and signatures of Neovim apis
-		{ "folke/neodev.nvim", opts = {} },
+		{ "folke/lazydev.nvim", opts = {} },
 	},
 	config = function()
 		vim.api.nvim_create_autocmd("LspAttach", {
@@ -107,22 +108,6 @@ return { -- LSP Configuration & Plugins
 		end
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-		local angularls_path = mason_registry.get_package("angular-language-server"):get_install_path()
-
-		local cmd = {
-			"ngserver",
-			"--stdio",
-			"--tsProbeLocations",
-			table.concat({
-				angularls_path,
-				vim.uv.cwd(),
-			}, ","),
-			table.concat({
-				"--ngProbeLocations",
-				angularls_path .. "/node_modules/@angular/language-server",
-				vim.uv.cwd(),
-			}, ","),
-		}
 
 		local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
 			.. "/node_modules/@vue/language-server"
@@ -193,6 +178,8 @@ return { -- LSP Configuration & Plugins
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 		require("mason-lspconfig").setup({
+			ensure_installed = {},
+			automatic_installation = true,
 			handlers = {
 				function(server_name)
 					local server = servers[server_name] or {}

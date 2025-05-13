@@ -8,14 +8,28 @@ return {
 		"rcarriga/nvim-notify",
 	},
 	config = function()
+		local noice = require("noice")
 		vim.keymap.set("n", "<leader>nt", function()
-			require("noice").cmd("telescope")
+			noice.cmd("telescope")
 		end, { desc = "Telescope Noice" })
 		vim.keymap.set("n", "<leader>un", function()
-			require("noice").cmd("dismiss")
+			noice.cmd("dismiss")
 		end, { desc = "Dismiss Noice" })
 
-		require("noice").setup({
+		noice.setup({
+
+			routes = {
+				{
+					filter = {
+						event = "notify",
+					},
+					view = "mini",
+				},
+				{
+					filter = { event = "msg_show", error = false },
+					opts = { skip = true },
+				},
+			},
 			messages = {
 
 				enabled = true, -- enables the Noice messages UI
