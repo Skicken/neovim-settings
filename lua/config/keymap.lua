@@ -8,7 +8,6 @@ vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagn
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
--- TODO:jump between edit buffersjump between edit buffers not between buffers in list not between buffers in list
 vim.keymap.set("n", "[b", vim.cmd.bp, { desc = "Go to previous edit buffer" })
 vim.keymap.set("n", "]b", vim.cmd.bn, { desc = "Go to next edit buffer" })
 
