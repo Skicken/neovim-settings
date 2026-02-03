@@ -33,7 +33,7 @@ return {
 			},
 			cmake_kits_path = nil, -- this is used to specify global cmake kits path, see CMakeKits for detailed usage
 			cmake_variants_message = {
-				short = { show = true }, -- whether to show short message
+				short = { show = false }, -- whether to show short message
 				long = { show = false, max_length = 40 }, -- whether to show long message
 			},
 			cmake_dap_configuration = { -- debug settings for cmake
@@ -141,7 +141,7 @@ return {
 				},
 			},
 			cmake_notifications = {
-				runner = { enabled = true },
+				runner = { enabled = false },
 				executor = { enabled = true },
 				spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }, -- icons used for progress display
 				refresh_rate_ms = 100, -- how often to iterate icons
@@ -157,6 +157,10 @@ return {
 		vim.keymap.set("n", "<leader>cm", function()
 			vim.cmd("CMakeBuild")
 		end, { desc = "[C]Make Build" })
+
+		vim.keymap.set("n", "<leader>cg", function()
+			vim.cmd("CMakeGenerate")
+		end, { desc = "[C]Make Generate" })
 
 		vim.keymap.set("n", "<leader>cd", function()
 			vim.cmd("CMakeDebug")

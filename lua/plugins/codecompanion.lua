@@ -6,7 +6,8 @@ return {
 	},
 	enable = true,
 	config = function()
-		require("codecompanion").setup({
+		local companion = require("codecompanion")
+		companion.setup({
 			display = {
 				chat = {
 					-- Change the default icons
@@ -21,6 +22,9 @@ return {
 						width = vim.o.columns - 5,
 						---@return number|fun(): number
 						height = vim.o.lines - 2,
+					},
+					inline = {
+						layout = "buffer", -- vertical|horizontal|buffer
 					},
 
 					-- Options to customize the UI of the chat buffer
@@ -44,7 +48,6 @@ return {
 							wrap = true,
 						},
 					},
-
 				},
 			},
 			strategies = {
@@ -63,6 +66,10 @@ return {
 
 		vim.keymap.set("n", "<leader>]", function()
 			vim.cmd("CodeCompanionActions")
-		end, { desc = "description" })
+		end, { desc = "CodeCompanionActions" })
+
+		vim.keymap.set("n", "<leader>\\", function()
+			vim.cmd("CodeCompanion")
+		end, { desc = "Inline prompt" })
 	end,
 }

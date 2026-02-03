@@ -26,30 +26,27 @@ return {
 		},
 	},
 	config = function()
-		vim.keymap.set("n", "<C-g>", ":Neotree git_status <CR>")
 		require("neo-tree").setup({
-
 			popup_border_style = "rounded",
 			enable_git_status = true,
 			enable_diagnostics = true,
 			close_if_last_window = false,
 			filesystem = {
 				window = {
-					width = 40,
+					width = 60,
 					mappings = {
 						["<leader>t"] = {
 							command = function(state)
 								local node = state.tree:get_node()
-								
-								local user_input = vim.fn.input("Command Input in "..node.path)
-								local out = vim.cmd("!cd " .. node.path .. " &&" .. user_input)
 
+								local user_input = vim.fn.input("Command Input in " .. node.path)
+								local out = vim.cmd("!cd " .. node.path .. " &&" .. user_input)
 								vim.print(node.path)
 								if vim.v.shell_error ~= 0 then
-									-- print(out)
+									print(out)
 								end
 							end,
-							desc = "[T]erminal command in neotree node"
+							desc = "[T]erminal command in neotree node",
 						},
 					},
 				},

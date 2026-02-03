@@ -5,7 +5,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"yamatsum/nvim-nonicons",
-		{ -- If encountering errors, see telescope-fzf-native README for installation instructions
+		{
 			"nvim-telescope/telescope-fzf-native.nvim",
 
 			build = "make",
@@ -16,8 +16,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
 		},
 		{ "nvim-telescope/telescope-ui-select.nvim" },
 
-		-- Useful for getting pretty icons, but requires a Nerd Font.
-		{ "nvim-tree/nvim-web-devicons",            enabled = vim.g.have_nerd_font },
+		{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
 	},
 	config = function()
 		local icons = require("nvim-nonicons")
@@ -27,35 +26,20 @@ return { -- Fuzzy Finder (files, lsp, etc)
 					require("telescope.themes").get_dropdown(),
 				},
 				defaults = {
-					-- prompt_prefix = "  " .. icons.get("telescope") .. "  ",
-					-- selection_caret = " ❯ ",
-					-- entry_prefix = "   ",
 					-- remember to have installed ripgrep
 					file_ignore_patterns = { "vendor/", "build/", "node_modules/" },
 				},
 			},
-			-- pickers = {
-			-- 	find_files = {
-			-- 		find_command = {
-			-- 			"rg",
-			-- 			"--files",
-			-- 			"--hidden",
-			-- 			"--glob",
-			-- 			"!.vendor/",
-			-- 			"--glob",
-			-- 			"!build/",
-			-- 		},
-			-- 	},
-			-- },
 		})
 
 		-- Enable Telescope extensions if they are installed
 		pcall(require("telescope").load_extension, "fzf")
+		pcall(require("telescope").load_extension, "find_template")
 		pcall(require("telescope").load_extension, "ui-select")
 
 		local builtin = require("telescope.builtin")
 		local actions = require("telescope.actions")
-		local action_state = require('telescope.actions.state')
+		local action_state = require("telescope.actions.state")
 
 		vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
 		vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
@@ -65,7 +49,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
 		vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
 		vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
 		-- vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
-		vim.keymap.set('n', '<leader><leader>', function()
+		vim.keymap.set("n", "<leader><leader>", function()
 			builtin.buffers({
 				initial_mode = "insert",
 				attach_mappings = function(prompt_bufnr, map)
@@ -75,13 +59,13 @@ return { -- Fuzzy Finder (files, lsp, etc)
 							vim.api.nvim_buf_delete(selection.bufnr, { force = true })
 						end)
 					end
-					map('n', 'x', delete_buf)
+					map("n", "x", delete_buf)
 					return true
-				end
+				end,
 			}, {
 				sort_lastused = true,
 				sort_mru = true,
-				theme = "dropdown"
+				theme = "dropdown",
 			})
 		end)
 

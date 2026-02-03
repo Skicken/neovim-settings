@@ -112,45 +112,16 @@ return { -- LSP Configuration & Plugins
 		local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
 			.. "/node_modules/@vue/language-server"
 		local servers = {
-			clangd = {},
-			["clang-format"] = {},
-			pyright = {},
-			eslint_d = {},
-			["tailwindcss-language-server"] = {
-				filetypes = { "css", "scss", "less", "html", "vue" },
-			},
-			ts_ls = {
-
-				init_options = {
-					plugins = {
-						{
-							name = "@vue/typescript-plugin",
-							location = vue_language_server_path,
-							languages = { "vue" },
-						},
-					},
-				},
-				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-			},
-			vtsls = {},
 			prettier = {},
 			codespell = {},
 			["html-lsp"] = {},
 			["css-lsp"] = {},
-			["angular-language-server"] = {},
-			["eslint-lsp"] = {},
-			["texlab"] = {},
-
-			docker_compose_language_service = {},
-			dockerls = {},
-			lua_ls = {
+			["lua_ls"] = {
 				settings = {
 					Lua = {
 						completion = {
 							callSnippet = "Replace",
 						},
-						-- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-						-- diagnostics = { disable = { 'missing-fields' } },
 					},
 				},
 			},
@@ -161,22 +132,56 @@ return { -- LSP Configuration & Plugins
 			servers["ansible-language-server"] = {}
 		end
 
-		-- Ensure the servers and tools above are installed
-		--  To check the current status of installed tools and/or manually install
-		--  other tools, you can run
-		--    :Mason
-		--
-		--  You can press `g?` for help in this menu.
+		if vim.fn.executable("g++") == 1 then
+			servers["cmake"] = {}
+			servers["clangd"] = {}
+		end
+
+		if vim.fn.executable("docker") == 1 then
+			servers["dockerls"] = {}
+		end
+
+		if vim.fn.executable("node") == 1 then
+			servers["eslint_d"] = {}
+			servers["tailwindcss-language-server"] = {
+				filetypes = { "css", "scss", "less", "html", "vue" },
+			}
+			servers["vtsls"] = {}
+			servers["angular-language-server"] = {}
+			servers["volar"] = {}
+		end
+
+		if vim.fn.executable("tex") == 1 then
+			servers["texlab"] = {}
+		end
+
+		if vim.fn.executable("java") == 1 then
+			servers["jdtls"] = {
+				cmd = { "jdtls" },
+				root_dir = function(fname)
+					return require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew" }, fname)
+				end,
+				settings = {
+					java = {
+						format = {
+							settings = {
+								url = vim.fn.stdpath("config") .. "/lsp/java-google-style.xml",
+							},
+						},
+					},
+				},
+			}
+		end
+
 		require("mason").setup()
 
-		-- You can add other tools here that you want Mason to install
-		-- for you, so that they are available from within Neovim.
+		require("java").setup()
 		local ensure_installed = vim.tbl_keys(servers or {})
 		vim.list_extend(ensure_installed, {
 			"stylua", -- Used to format Lua code
 		})
-		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
+		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 		require("mason-lspconfig").setup({
 			ensure_installed = {},
 			automatic_installation = true,

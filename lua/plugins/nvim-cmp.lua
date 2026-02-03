@@ -146,8 +146,8 @@ return { -- Autocompletion
 				{ name = "luasnip" },
 				{ name = "nvim_lsp", max_item_count = 5, priority = 1 },
 				{ name = "buffer" },
-				{ name = "codecompanion" },
-				{ name = "copilot" },
+				{ name = "codecompanion", priority = 0 },
+				{ name = "copilot", priority = 0 },
 			}),
 
 			experimental = {
@@ -167,7 +167,7 @@ return { -- Autocompletion
 			},
 		})
 
-		-- COLOR SCHME
+		-- COLOR SCHEME
 		-- gray
 		vim.api.nvim_set_hl(0, "CmpItemAbbrDeprecated", { bg = "NONE", strikethrough = true, fg = "#808080" })
 		-- blue

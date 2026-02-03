@@ -4,11 +4,8 @@ return {
 	config = function()
 		require("conform").setup({
 			formatters_by_ft = {
-				javascript = { "prettier" },
-				typescript = { "prettier" },
-				javascriptreact = { "prettier" },
-				typescriptreact = { "prettier" },
-				svelte = { "prettier" },
+				javascript = { "eslint_d" },
+				typescript = { "eslint_d" },
 				html = { "prettier" },
 				json = { "prettier" },
 				yaml = { "prettier" },
@@ -16,12 +13,12 @@ return {
 				graphql = { "prettier" },
 				lua = { "stylua" },
 				-- Conform will run multiple formatters sequentially
-				python = { "isort", "black" },
+				python = { "ruff", "black", "isort" },
 				-- Use a sub-list to run only the first available formatter
 				cpp = { "clang-format" },
 				go = { "gofmt" },
-
-				["vue"] = { "prettier" }, 
+				java = { "google-java-format" },
+				["vue"] = { "eslint_d" },
 				["*"] = { "codespell" },
 			},
 
