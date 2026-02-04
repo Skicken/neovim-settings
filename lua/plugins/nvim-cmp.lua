@@ -41,14 +41,10 @@ return { -- Autocompletion
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")
 		local lspkind = require("lspkind")
-		lspkind.init({
-			symbol_map = {
-				Copilot = "",
-			},
-		})
-		vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
 
-		luasnip.config.setup({})
+		local iconMap = {
+			copilot = "",
+		}
 
 		cmp.setup({
 			snippet = {
@@ -58,7 +54,7 @@ return { -- Autocompletion
 			},
 			formatting = {
 				expandable_indicator = true,
-				fields = { "abbr", "kind", "menu" },
+				fields = { "abbr", "icon", "kind", "menu" },
 				format = lspkind.cmp_format({
 					mode = "symbol", -- show only symbol annotations
 					maxwidth = {
@@ -74,7 +70,10 @@ return { -- Autocompletion
 					-- The function below will be called before any actual modifications from lspkind
 					-- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
 					before = function(entry, vim_item)
-						-- ...
+						if iconMap[entry.source.name] then
+							vim_item.icon = iconMap[entry.source.name]
+						end
+
 						return vim_item
 					end,
 				}),
@@ -184,5 +183,8 @@ return { -- Autocompletion
 		vim.api.nvim_set_hl(0, "CmpItemKindKeyword", { bg = "NONE", fg = "#D4D4D4" })
 		vim.api.nvim_set_hl(0, "CmpItemKindProperty", { link = "CmpItemKindKeyword" })
 		vim.api.nvim_set_hl(0, "CmpItemKindUnit", { link = "CmpItemKindKeyword" })
+
+		-- green
+		vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
 	end,
 }

@@ -66,12 +66,5 @@ return {
 				builtin.find_files()
 			end
 		end, {})
-		vim.keymap.set("n", "<leader>fg", function()
-			if connections.is_connected() then
-				api.live_grep()
-			else
-				builtin.live_grep()
-			end
-		end, {})
 	end,
 }

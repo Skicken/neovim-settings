@@ -66,8 +66,8 @@ return {
 				lualine_c = {
 					{
 						"filename",
-						path = 1,
-						color = { fg = colors.magenta, gui = "bold" },
+						path = 0,
+						color = { fg = colors.magenta },
 					},
 					{
 						"diagnostics",
@@ -103,22 +103,59 @@ return {
 						-- Lsp server name .
 						function()
 							local msg = "No Active Lsp"
-							local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
 							local clients = vim.lsp.get_clients()
 							if next(clients) == nil then
 								return msg
 							end
-							local lsps_names = ""
-							for index, client in ipairs(clients) do
-								if index == 1 then
-									lsps_names = client.name
-								else
-									lsps_names = lsps_names .. "," .. client.name
-								end
+							local lsps_names = {}
+							for _, client in ipairs(clients) do
+								table.insert(lsps_names, client.name)
 							end
-							return lsps_names
+							return table.concat(lsps_names, ", ")
 						end,
-						icon = " LSP:",
+						icon = ":",
+						color = { fg = "#ffffff" },
+					},
+					{
+						function()
+							local status, conform = pcall(require, "conform")
+							if not status then
+								return "Conform not installed"
+							end
+
+							local formatters = conform.list_formatters_for_buffer()
+
+							if formatters and #formatters > 0 then
+								local formatters_names = {}
+
+								for _, formatter in ipairs(formatters) do
+									table.insert(formatters_names, formatter)
+								end
+
+								return table.concat(formatters_names, ", ")
+							end
+
+							return ""
+						end,
+						icon = ":",
+						color = { fg = "#ffffff" },
+					},
+					{
+						function()
+							local status, lint = pcall(require, "lint")
+							if not status then
+								return "Lint not installed"
+							end
+
+							local linters = lint.linters_by_ft[vim.bo.filetype] or {}
+
+							if #linters == 0 then
+								return ""
+							end
+
+							return table.concat(linters, ", ")
+						end,
+						icon = ":",
 						color = { fg = "#ffffff", gui = "bold" },
 					},
 				},

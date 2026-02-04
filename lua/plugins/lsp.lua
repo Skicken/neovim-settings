@@ -13,6 +13,7 @@ return { -- LSP Configuration & Plugins
 		-- used for completion, annotations and signatures of Neovim apis
 		{ "folke/lazydev.nvim", opts = {} },
 	},
+
 	config = function()
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
@@ -101,7 +102,7 @@ return { -- LSP Configuration & Plugins
 			end,
 		})
 
-		local ok, mason_registry = pcall(require, "mason-registry")
+		local ok = pcall(require, "mason-registry")
 		if not ok then
 			vim.notify("mason-registry could not be loaded")
 			return
@@ -109,14 +110,16 @@ return { -- LSP Configuration & Plugins
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
-		local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
-			.. "/node_modules/@vue/language-server"
-		local servers = {
-			prettier = {},
-			codespell = {},
+		local lsp_servers = {
 			["html-lsp"] = {},
 			["css-lsp"] = {},
-			["lua_ls"] = {
+		}
+		local linters_formatters = {}
+
+		if vim.fn.executable("lua") == 1 then
+			linters_formatters["stylua"] = {}
+			linters_formatters["luacheck"] = {}
+			lsp_servers["lua_ls"] = {
 				settings = {
 					Lua = {
 						completion = {
@@ -124,39 +127,43 @@ return { -- LSP Configuration & Plugins
 						},
 					},
 				},
-			},
-		}
-
+			}
+		end
 		if vim.fn.executable("ansible") == 1 then
-			servers["ansible-lint"] = {}
-			servers["ansible-language-server"] = {}
+			lsp_servers["ansible-lint"] = {}
+			lsp_servers["ansible-language-server"] = {}
 		end
 
 		if vim.fn.executable("g++") == 1 then
-			servers["cmake"] = {}
-			servers["clangd"] = {}
+			lsp_servers["clangd"] = {}
+			linters_formatters["clang-format"] = {}
+		end
+
+		if vim.fn.executable("cmake") == 1 then
+			lsp_servers["cmake"] = {}
 		end
 
 		if vim.fn.executable("docker") == 1 then
-			servers["dockerls"] = {}
+			lsp_servers["dockerls"] = {}
 		end
 
 		if vim.fn.executable("node") == 1 then
-			servers["eslint_d"] = {}
-			servers["tailwindcss-language-server"] = {
+			lsp_servers["tailwindcss-language-server"] = {
 				filetypes = { "css", "scss", "less", "html", "vue" },
 			}
-			servers["vtsls"] = {}
-			servers["angular-language-server"] = {}
-			servers["volar"] = {}
+			lsp_servers["vtsls"] = {}
+			lsp_servers["angular-language-server"] = {}
+			lsp_servers["volar"] = {}
+			linters_formatters["prettierd"] = {}
+			linters_formatters["eslint"] = {}
 		end
 
 		if vim.fn.executable("tex") == 1 then
-			servers["texlab"] = {}
+			lsp_servers["texlab"] = {}
 		end
 
 		if vim.fn.executable("java") == 1 then
-			servers["jdtls"] = {
+			lsp_servers["jdtls"] = {
 				cmd = { "jdtls" },
 				root_dir = function(fname)
 					return require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew" }, fname)
@@ -171,15 +178,13 @@ return { -- LSP Configuration & Plugins
 					},
 				},
 			}
+			require("java").setup()
 		end
 
 		require("mason").setup()
 
-		require("java").setup()
-		local ensure_installed = vim.tbl_keys(servers or {})
-		vim.list_extend(ensure_installed, {
-			"stylua", -- Used to format Lua code
-		})
+		local ensure_installed = vim.tbl_keys(lsp_servers or {})
+		vim.list_extend(ensure_installed, vim.tbl_keys(linters_formatters or {}))
 
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 		require("mason-lspconfig").setup({
@@ -187,7 +192,7 @@ return { -- LSP Configuration & Plugins
 			automatic_installation = true,
 			handlers = {
 				function(server_name)
-					local server = servers[server_name] or {}
+					local server = lsp_servers[server_name] or {}
 					-- This handles overriding only values explicitly passed
 					-- by the server configuration above. Useful when disabling
 					-- certain features of an LSP (for example, turning off formatting for tsserver)

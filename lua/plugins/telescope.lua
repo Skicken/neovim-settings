@@ -7,6 +7,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
 		"yamatsum/nvim-nonicons",
 		{
 			"nvim-telescope/telescope-fzf-native.nvim",
+			"nvim-telescope/telescope-live-grep-args.nvim",
 
 			build = "make",
 
@@ -36,6 +37,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
 		pcall(require("telescope").load_extension, "fzf")
 		pcall(require("telescope").load_extension, "find_template")
 		pcall(require("telescope").load_extension, "ui-select")
+		pcall(require("telescope").load_extension, "live_grep_args")
 
 		local builtin = require("telescope.builtin")
 		local actions = require("telescope.actions")
@@ -48,6 +50,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
 		vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
 		vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
 		vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
+		vim.keymap.set("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
 		-- vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
 		vim.keymap.set("n", "<leader><leader>", function()
 			builtin.buffers({

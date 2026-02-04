@@ -18,6 +18,18 @@ return {
 			end,
 			desc = "Opening neotree",
 		},
+
+		{
+			"<C-p>",
+			function()
+				require("neo-tree.command").execute({
+					toggle = true,
+					position = "right",
+					reveal = true, -- This expands the tree to the current file
+				})
+			end,
+			desc = "Toggle Neo-tree and reveal current file",
+		},
 	},
 	opts = {
 
